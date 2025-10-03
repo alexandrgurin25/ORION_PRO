@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ОРИОН ПРО</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="icon" href="images/logos/закладка1.png" type="image/jpeg">
+    
+    <style>
+
+        footer {
+            width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+
+        .navbar {
+            background-color: #000 !important;
+        }
+        
+        .navbar-nav .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            color: #fff !important;
+        }
+        
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 76px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/hero/1.jpg') center/cover no-repeat;
+        }
+        
+        .service-image {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-item {
+            text-align: center;
+            padding: 2rem 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .service-item:hover {
+            background-color: rgba(0,0,0,0.03);
+            transform: translateY(-5px);
+        }
+        
+        .service-item:hover .service-image {
+            transform: scale(1.1);
+        }
+        
+        #about {
+            background-color: #000;
+            color: #fff;
+        }
+        
+        .stat-card {
+            padding: 1.5rem 0.5rem;
+            border-radius: 10px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: bold;
+        }
+        
+        .service-feature {
+            padding: 1.25rem;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            background: white;
+        }
+        
+        .service-feature:hover {
+            border-color: #007bff;
+            box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
+        }
+        
+        .service-image-wrapper img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .service-image {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .service-image-wrapper img {
+                height: 220px;
+            }
+            
+            .service-item {
+                padding: 1.5rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Услуги</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">О компании</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#portfolio">Наши работы</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacts">Контакты</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Главный экран -->
+    <header id="home" class="hero-section">
+        <div class="container text-center">
+            <img src="images/logos/Без имени-1@2x.png" alt="Логотип компании" class="img-fluid">
+        </div>
+    </header>
+
+    <!-- Секция услуг -->
+    <section id="services" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Наши услуги</h2>
+            <div class="row g-4">
+                <div class="col-md-3 col-sm-6">
+                    <a href="#service-fire" class="text-decoration-none text-dark">
+                        <div class="service-item">
+                            <img src="images/services/апс.png" alt="Системы пожарной безопасности" class="service-image">
+                            <h4 class="service-title">Системы пожарной безопасности</h4>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <a href="#service-security" class="text-decoration-none text-dark">
+                        <div class="service-item">
+                            <img src="images/services/7527980f1a7eeecd49cba0b8e14f5c42 (1).png" alt="Системы охранной безопасности" class="service-image">
+                            <h4 class="service-title">Системы охранной безопасности</h4>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <a href="#service-video" class="text-decoration-none text-dark">
+                        <div class="service-item">
+                            <img src="images/services/вн.png" alt="Системы видеонаблюдения" class="service-image">
+                            <h4 class="service-title">Системы видеонаблюдения</h4>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <a href="#service-access" class="text-decoration-none text-dark">
+                        <div class="service-item">
+                            <img src="images/services/доступ.png" alt="Системы управления и контроля доступа" class="service-image">
+                            <h4 class="service-title">Системы управления и контроля доступа</h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- О компании -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2>О компании</h2>
+                </div>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <p>Наша компания — это надежный партнер, который берет на себя все вопросы пожарной безопасности вашего бизнеса. Мы предлагаем не просто услуги, а готовые, законные и экономически выгодные решения под ключ.</p>
+                    
+                    <b>Оптимизация стоимости и сроков</b><br>
+                    Работая напрямую с крупными производителями оборудования, мы обеспечиваем вам выгодную цену и минимальные сроки поставки, без торговых наценок.
+                    
+                    <br><br>
+                    <b>Экспертиза и скорость согласований</b><br>
+                     Прямое сотрудничество с нормативно-техническим отделом МЧС позволяет нам проводить согласования проектной и отчетной документации в кратчайшие сроки, экономя ваше время и ресурсы.
+            
+                    <br><br>
+                    <b>Высокая квалификация и опыт</b><br>
+                    Наши специалисты обладают всеми необходимыми сертификатами и многолетним опытом для выполнения работ любого уровня сложности — от установки пожарной сигнализации до разработки комплексных систем безопасности для крупных объектов.
+                    
+                    <br><br>
+                    <b>Полная юридическая ответственность</b><br>
+                    Вся наша деятельность легальна и прозрачна. Мы имеем все разрешительные документы: лицензии МЧС, членство в СРО и официальную аккредитацию, что гарантирует вам полное соответствие наших работ требованиям законодательства.
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="mb-4">
+                        <img src="images/about/about.jpg" alt="О компании" class="img-fluid rounded">
+                    </div>
+                    
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="stat-card">
+                                <div class="stat-number">30+</div>
+                                <div class="stat-label">лет на рынке</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="stat-card">
+                                <div class="stat-number">5000+</div>
+                                <div class="stat-label">реализованных объектов</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-12 text-center">
+                    <h4 class="mb-3">Ответим на любые вопросы</h4>
+                    <a href="https://wa.me/79326165905" class="btn btn-success me-2 mb-2">
+                        <i class="bi bi-whatsapp"></i> WhatsApp
+                    </a>
+                    <a href="tel:+79326165905" class="btn btn-primary mb-2">
+                        <i class="bi bi-telephone"></i> Позвонить
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Системы пожарной безопасности -->
+    <section id="service-fire" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-10 text-center">
+                    <h2 class="mb-3">Системы пожарной безопасности</h2>
+                    <p class="lead text-muted">Комплексные решения для защиты вашего бизнеса</p>
+                </div>
+            </div>
+
+            <!-- Блок 1 -->
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h3 class="mb-4">Проектирование и монтаж</h3>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Системы пожарной сигнализации</strong>
+                                <p class="mb-0 text-muted">Проектирование и установка современных систем обнаружения возгорания</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Системы оповещения людей о пожаре</strong>
+                                <p class="mb-0 text-muted">Голосовые и световые системы оповещения для безопасной эвакуации</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Системы дымоудаления и противодымной защиты</strong>
+                                <p class="mb-0 text-muted">Обеспечение чистого воздуха в путях эвакуации</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <img src="images/services/install5_2822.jpg" alt="Проектирование и монтаж" class="img-fluid rounded">
+                </div>
+            </div>
+
+            <!-- Блок 2 -->
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6 order-2 order-lg-1">
+                    <img src="images/services/montazh_vodyanogo_pozharotusheniya2.jpg" alt="Системы пожаротушения" class="img-fluid rounded">
+                </div>
+                
+                <div class="col-lg-6 mb-4 mb-lg-0 order-1 order-lg-2">
+                    <h3 class="mb-4">Системы пожаротушения</h3>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Автоматические системы пожаротушения</strong>
+                                <div class="text-muted mt-2">
+                                    <span class="badge bg-light text-dark me-2 mb-2 border">Порошковое</span>
+                                    <span class="badge bg-light text-dark me-2 mb-2 border">Газовое</span>
+                                    <span class="badge bg-light text-dark me-2 mb-2 border">Водяное</span>
+                                    <span class="badge bg-light text-dark me-2 mb-2 border">Насосные станции</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Автоматика систем</strong>
+                                <p class="mb-0 text-muted">Интеграция и автоматизация всех систем безопасности</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Блок 3 -->
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h3 class="mb-4">Проектная документация и испытания</h3>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Расчёт пожарных рисков</strong>
+                                <p class="mb-0 text-muted">Профессиональная оценка и расчет рисков для вашего объекта</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Расчёт категорий по пожарной безопасности</strong>
+                                <p class="mb-0 text-muted">Определение категорий помещений по взрывопожарной опасности</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Разработка и изготовление планов эвакуации</strong>
+                                <p class="mb-0 text-muted">Создание понятных и соответствующих нормативам планов эвакуации</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <img src="images/services/f6a32b9a062409671cec4a108cac257c.jpg" alt="Документация и испытания" class="img-fluid rounded">
+                </div>
+            </div>
+
+            <!-- Блок 4 -->
+            <div class="row align-items-center">
+                <div class="col-lg-6 order-2 order-lg-1">
+                    <img src="images/services/proverka-vodoprovoda.jpg" alt="Испытания" class="img-fluid rounded">
+                </div>
+                
+                <div class="col-lg-6 mb-4 mb-lg-0 order-1 order-lg-2">
+                    <h3 class="mb-4">Испытания и проверки</h3>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Испытание наружных металлических лестниц</strong>
+                                <p class="mb-0 text-muted">Проверка прочности и надежности эвакуационных путей</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Испытание внутреннего и наружного пожарного водопровода</strong>
+                                <p class="mb-0 text-muted">Проверка работоспособности систем водоснабжения для пожаротушения</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Системы охранной безопасности -->
+    <section id="service-security" class="py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-10 text-center">
+                    <h2 class="mb-3">Системы охранной безопасности</h2>
+                    <p class="lead text-muted">Комплексные решения для защиты вашего имущества и бизнеса</p>
+                </div>
+            </div>
+
+            <!-- Блок 1 -->
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h3 class="mb-4">Охранная сигнализация</h3>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Проектирование и установка охранных систем</strong>
+                                <p class="mb-0 text-muted">Разработка и монтаж современных систем охранной сигнализации</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Датчики движения и присутствия</strong>
+                                <p class="mb-0 text-muted">Установка высокочувствительных датчиков для обнаружения движения</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Интеграция с пультами централизованного наблюдения</strong>
+                                <p class="mb-0 text-muted">Подключение к системам удаленного мониторинга и реагирования</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <img src="images/services/orig.jpeg" alt="Охранная сигнализация" class="img-fluid rounded">
+                </div>
+            </div>
+
+            <!-- Блок 2 -->
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6 order-2 order-lg-1">
+                    <img src="images/services/9caf4962-5e1f-4308-a385-8a7dd764d455.jpg-338.jpg" alt="Периметральная охрана" class="img-fluid rounded">
+                </div>
+                
+                <div class="col-lg-6 mb-4 mb-lg-0 order-1 order-lg-2">
+                    <h3 class="mb-4">Периметральная охрана</h3>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Системы охраны периметра</strong>
+                                <div class="text-muted mt-2">
+                                    <span class="badge bg-light text-dark me-2 mb-2 border">Радиоволновые</span>
+                                    <span class="badge bg-light text-dark me-2 mb-2 border">Инфракрасные</span>
+                                    <span class="badge bg-light text-dark me-2 mb-2 border">Вибрационные</span>
+                                    <span class="badge bg-light text-dark me-2 mb-2 border">Сейсмические</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Контроль доступа на территорию</strong>
+                                <p class="mb-0 text-muted">Организация систем контроля въезда и выезда с охраняемой территории</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Блок 3 -->
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h3 class="mb-4">Интегрированные системы безопасности</h3>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Объединение систем безопасности</strong>
+                                <p class="mb-0 text-muted">Создание единой платформы управления охранными системами</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Автоматизация процессов охраны</strong>
+                                <p class="mb-0 text-muted">Настройка автоматических сценариев реагирования на тревожные события</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Мониторинг и управление через мобильные устройства</strong>
+                                <p class="mb-0 text-muted">Возможность удаленного контроля системы безопасности с любого устройства</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <img src="images/services/XXL_height (2).png" alt="Интегрированные системы" class="img-fluid rounded">
+                </div>
+            </div>
+
+            <!-- Блок 4 -->
+            <div class="row align-items-center">
+                <div class="col-lg-6 order-2 order-lg-1">
+                    <img src="images/services/22027349.jpg" alt="Техническое обслуживание" class="img-fluid rounded">
+                </div>
+                
+                <div class="col-lg-6 mb-4 mb-lg-0 order-1 order-lg-2">
+                    <h3 class="mb-4">Техническое обслуживание</h3>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Регулярное техническое обслуживание</strong>
+                                <p class="mb-0 text-muted">Плановые проверки и обслуживание охранных систем</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Оперативное устранение неисправностей</strong>
+                                <p class="mb-0 text-muted">Круглосуточная техническая поддержка и ремонт оборудования</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Модернизация существующих систем</strong>
+                                <p class="mb-0 text-muted">Обновление и расширение возможностей охранных систем</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+
+        
+        <!-- Блок 3 -->
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h3 class="mb-4">Подключение к группам быстрого реагирования</h3>
+                    
+                 
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Мгновенное реагирование</strong>
+                                <p class="mb-0 text-muted">Высылка группы быстрого реагирования при срабатывании тревоги</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                   <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Интеграция с охранными системами</strong>
+                                <p class="mb-0 text-muted">Автоматическая передача тревожных сигналов в службы реагирования</p>
+                            </div>
+                        </div>
+                    </div>
+
+                     <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Профессиональная охрана объектов</strong>
+                                <p class="mb-0 text-muted">Обеспечение физической охраны вашего имущества</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                
+                <div class="col-lg-6">
+                    <img src="images/services/XXL_height (3).png" alt="Интегрированные системы" class="img-fluid rounded">
+                </div>
+            </div>
+             </div>
+        
+    </section>
+
+    <!-- Системы видеонаблюдения -->
+    <section id="service-video" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-10 text-center">
+                    <h2 class="mb-3">Системы видеонаблюдения</h2>
+                    <p class="lead text-muted">Профессиональные решения для визуального контроля и безопасности</p>
+                </div>
+            </div>
+
+            <!-- Блок 1 -->
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h3 class="mb-4">Проектирование и установка</h3>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>IP-системы видеонаблюдения</strong>
+                                <p class="mb-0 text-muted">Современные цифровые системы с высоким разрешением</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Аналоговые системы видеонаблюдения</strong>
+                                <p class="mb-0 text-muted">Надежные и проверенные решения для различных объектов</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Системы записи и хранения видео</strong>
+                                <p class="mb-0 text-muted">Организация надежного хранения видеоданных</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <img src="images/services/XXL_height (4).png" alt="Проектирование и установка" class="img-fluid rounded">
+                </div>
+            </div>
+
+            
+        </div>
+    </section>
+
+    <!-- Системы управления и контроля доступа -->
+    <section id="service-access" class="py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-10 text-center">
+                    <h2 class="mb-3">Системы управления и контроля доступа</h2>
+                    <p class="lead text-muted">Организация безопасного и удобного контроля доступа на ваших объектах</p>
+                </div>
+            </div>
+
+            <!-- Блок 1 -->
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h3 class="mb-4">Контроль доступа в помещения</h3>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Электронные замки и считыватели</strong>
+                                <p class="mb-0 text-muted">Современные системы контроля доступа в помещения</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Домофонные системы</strong>
+                                <p class="mb-0 text-muted">Организация контроля доступа в жилые и офисные здания</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-feature mb-4">
+                        <div class="d-flex align-items-start">
+                            <i class="bi bi-check-circle-fill text-primary me-3"></i>
+                            <div>
+                                <strong>Турникеты и шлагбаумы</strong>
+                                <p class="mb-0 text-muted">Контроль прохода и проезда на территорию объектов</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <img src="images/services/businesswoman_passing_turnstile_MW4AEJF.jpg" alt="Контроль доступа в помещения" class="img-fluid rounded">
+                </div>
+            </div>
+
+          </section> <!-- ЭТОЙ СТРОКИ НЕ ХВАТАЕТ! -->
+
+
+
+    <!-- Контакты -->
+    <section id="contacts" class="py-5 bg-dark text-white">
+        <div class="container">
+            <h2 class="text-center mb-5">Контакты</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <h4>Наши контакты</h4>
+                    <p><i class="bi bi-geo-alt me-2"></i> г. Екатеринбург, пр. Ленина 50Б</p>
+                    <p><i class="bi bi-phone me-2"></i> +7 (912) 045-90-89</p>
+                    <p><i class="bi bi-envelope me-2"></i> 001012@mail.ru</p>
+                    <p><i class="bi bi-envelope me-2"></i> 000252@bk.ru</p>
+                </div>
+                <div class="col-md-6">
+                    <h4>Форма обратной связи</h4>
+                    <form>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="tel" class="form-control" placeholder="Телефон" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Отправить заявку</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="bg-dark text-white text-center py-4" style="width: 100%;">
+        <div class="container">
+            <p>&copy; 2025 Орион Про. Все права защищены.</p>
+        </div>
+    </footer>
+   
+    
+</body>
+</html>
