@@ -979,4 +979,31 @@
 
 
 
-    
+
+
+
+.footer-left .row.align-items-stretch {
+    min-height: 500px; /* или нужная вам высота */
+}
+
+.col-lg-6.h-100 {
+    min-height: 100%;
+}
+
+.footer-form-container,
+.working-hours {
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #333;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Выравнивание высоты форм и контента */
+.footer-form-container,
+.flex-column:first-child {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
