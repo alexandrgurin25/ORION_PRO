@@ -591,7 +591,7 @@ getDefaultProjects() {
             title: "ТЦ 'Европа'",
             description: "Комплексная система безопасности торгового центра",
             categories: ["fire", "security", "video"],
-            image: "fire1.jpg",
+            
             details: [
                 "Проектирование системы пожарной безопасности",
                 "Монтаж охранной сигнализации", 
