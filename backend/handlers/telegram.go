@@ -88,7 +88,7 @@ func formatTelegramMessage(form ContactForm) string {
 		form.Name,
 		form.Phone,
 		form.Message,
-		time.Now().Format("02.01.2006 15:04"),
+		time.Now().Format("02.01.2006"),
 	)
 }
 

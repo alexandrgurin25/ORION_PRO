@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/joho/godotenv"
@@ -16,12 +17,21 @@ func main() {
 		log.Println("Warning: .env file not found")
 	}
 
-	// Статические файлы основного сайта с защитой
+	// Настройка правильных MIME-типов для статических файлов
+	http.Handle("/js/", http.StripPrefix("/js/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/javascript")
+		http.FileServer(http.Dir("./../html/js")).ServeHTTP(w, r)
+	})))
+
+	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("./../html/css"))))
+	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("./../html/images"))))
+
+	// Основные статические файлы с защитой
 	http.Handle("/", protectAdminFiles(http.FileServer(http.Dir("./../html"))))
 
-	// API endpoints
-	http.HandleFunc("/api/send-form", handlers.SendToTelegramHandler)
-	http.HandleFunc("/api/projects", handlers.GetProjectsHandler)
+	// API endpoints с CORS
+	http.HandleFunc("/api/send-form", enableCORS(handlers.SendToTelegramHandler))
+	http.HandleFunc("/api/projects", enableCORS(handlers.GetProjectsHandler))
 
 	// Админка с защитой
 	http.HandleFunc("/admin", handlers.RequireAuth(handlers.AdminHandler))
@@ -85,6 +95,22 @@ func main() {
 	}
 }
 
+// CORS middleware для API
+func enableCORS(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+		
+		if r.Method == "OPTIONS" {
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+		
+		next(w, r)
+	}
+}
+
 // Редирект с HTTP на HTTPS
 func redirectToHTTPS(w http.ResponseWriter, r *http.Request) {
 	httpsPort := os.Getenv("HTTPS_PORT")
@@ -116,11 +142,27 @@ func startHTTPOnly(port string) {
 // Middleware для защиты статических файлов админки
 func protectAdminFiles(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if strings.HasPrefix(r.URL.Path, "/admin.html") || 
-		   strings.HasPrefix(r.URL.Path, "/admin-login.html") {
+		// Запрещаем прямой доступ к HTML файлам админки
+		if strings.HasPrefix(r.URL.Path, "/admin") && filepath.Ext(r.URL.Path) == ".html" {
 			http.Error(w, "Access denied", http.StatusForbidden)
 			return
 		}
+		
+		// Устанавливаем правильные MIME-типы для известных расширений
+		ext := filepath.Ext(r.URL.Path)
+		switch ext {
+		case ".js":
+			w.Header().Set("Content-Type", "application/javascript")
+		case ".css":
+			w.Header().Set("Content-Type", "text/css")
+		case ".png":
+			w.Header().Set("Content-Type", "image/png")
+		case ".jpg", ".jpeg":
+			w.Header().Set("Content-Type", "image/jpeg")
+		case ".svg":
+			w.Header().Set("Content-Type", "image/svg+xml")
+		}
+		
 		next.ServeHTTP(w, r)
 	})
 }
