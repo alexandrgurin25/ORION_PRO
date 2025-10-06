@@ -17,27 +17,6 @@ func main() {
 		log.Println("Warning: .env file not found")
 	}
 
-	// Настройка правильных MIME-типов для статических файлов
-	http.Handle("/js/", http.StripPrefix("/js/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "application/javascript")
-		http.FileServer(http.Dir("./../html/js")).ServeHTTP(w, r)
-	})))
-
-	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("./../html/css"))))
-	http.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("./../html/images"))))
-
-	// Основные статические файлы с защитой
-	http.Handle("/", protectAdminFiles(http.FileServer(http.Dir("./../html"))))
-
-	// API endpoints с CORS
-	http.HandleFunc("/api/send-form", enableCORS(handlers.SendToTelegramHandler))
-	http.HandleFunc("/api/projects", enableCORS(handlers.GetProjectsHandler))
-
-	// Админка с защитой
-	http.HandleFunc("/admin", handlers.RequireAuth(handlers.AdminHandler))
-	http.HandleFunc("/admin/login", handlers.AdminLoginHandler)
-	http.HandleFunc("/admin/api/projects", handlers.ProtectAPI(handlers.AdminAPIHandler))
-
 	// Порты
 	httpsPort := os.Getenv("HTTPS_PORT")
 	if httpsPort == "" {
@@ -75,24 +54,69 @@ func main() {
 		return
 	}
 
+	// Создаем основной mux для HTTPS сервера
+	mainMux := http.NewServeMux()
+	
+	// Настройка статических файлов для основного mux
+	mainMux.Handle("/js/", http.StripPrefix("/js/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/javascript")
+		http.FileServer(http.Dir("./../html/js")).ServeHTTP(w, r)
+	})))
+
+	mainMux.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("./../html/css"))))
+	mainMux.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("./../html/images"))))
+	mainMux.Handle("/", protectAdminFiles(http.FileServer(http.Dir("./../html"))))
+
+	// API endpoints с CORS
+	mainMux.HandleFunc("/api/send-form", enableCORS(handlers.SendToTelegramHandler))
+	mainMux.HandleFunc("/api/projects", enableCORS(handlers.GetProjectsHandler))
+
+	// Админка с защитой
+	mainMux.HandleFunc("/admin", handlers.RequireAuth(handlers.AdminHandler))
+	mainMux.HandleFunc("/admin/login", handlers.AdminLoginHandler)
+	mainMux.HandleFunc("/admin/api/projects", handlers.ProtectAPI(handlers.AdminAPIHandler))
+
 	// Запускаем HTTP сервер для редиректа на HTTPS (в отдельной горутине)
 	go func() {
 		log.Printf("🔄 HTTP redirect server listening on :%s", httpPort)
-		if err := http.ListenAndServe(":"+httpPort, http.HandlerFunc(redirectToHTTPS)); err != nil {
+		// Простой сервер только для редиректа
+		redirectHandler := http.HandlerFunc(redirectToHTTPS)
+		if err := http.ListenAndServe(":"+httpPort, redirectHandler); err != nil {
 			log.Printf("❌ HTTP server error: %v", err)
 		}
 	}()
 
-	// Запускаем HTTPS сервер (основной)
+	// Запускаем HTTPS сервер (основной) с mainMux
 	log.Printf("🚀 HTTPS server starting on :%s", httpsPort)
 	log.Printf("📱 Main site: https://localhost:%s", httpsPort)
 	log.Printf("🔐 Admin panel: https://localhost:%s/admin", httpsPort)
 	log.Printf("🔒 Using SSL certificate: %s", certFile)
 	log.Printf("🔑 Using SSL key: %s", keyFile)
 	
-	if err := http.ListenAndServeTLS(":"+httpsPort, certFile, keyFile, nil); err != nil {
+	if err := http.ListenAndServeTLS(":"+httpsPort, certFile, keyFile, mainMux); err != nil {
 		log.Fatalf("❌ HTTPS server error: %v", err)
 	}
+}
+
+// Улучшенный редирект с HTTP на HTTPS
+func redirectToHTTPS(w http.ResponseWriter, r *http.Request) {
+	httpsPort := os.Getenv("HTTPS_PORT")
+	if httpsPort == "" {
+		httpsPort = "443"
+	}
+	
+	// Определяем хост для редиректа
+	host := r.Host
+	if strings.Contains(host, ":") {
+		host = strings.Split(host, ":")[0]
+	}
+	
+	// Собираем целевой URL
+	target := "https://" + host
+	
+	target += r.URL.RequestURI()
+	
+	http.Redirect(w, r, target, http.StatusPermanentRedirect)
 }
 
 // CORS middleware для API
@@ -111,30 +135,36 @@ func enableCORS(next http.HandlerFunc) http.HandlerFunc {
 	}
 }
 
-// Редирект с HTTP на HTTPS
-func redirectToHTTPS(w http.ResponseWriter, r *http.Request) {
-	httpsPort := os.Getenv("HTTPS_PORT")
-	if httpsPort == "" {
-		httpsPort = "443"
-	}
-	
-	host := strings.Split(r.Host, ":")[0] // Убираем порт из host
-	target := "https://" + host + ":" + httpsPort + r.URL.Path
-	if r.URL.RawQuery != "" {
-		target += "?" + r.URL.RawQuery
-	}
-	
-	http.Redirect(w, r, target, http.StatusPermanentRedirect)
-}
-
 // Запуск только HTTP (если SSL файлы не найдены)
 func startHTTPOnly(port string) {
+	// Создаем mux для HTTP-only режима
+	mux := http.NewServeMux()
+	
+	// Настройка статических файлов
+	mux.Handle("/js/", http.StripPrefix("/js/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/javascript")
+		http.FileServer(http.Dir("./../html/js")).ServeHTTP(w, r)
+	})))
+
+	mux.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("./../html/css"))))
+	mux.Handle("/images/", http.StripPrefix("/images/", http.FileServer(http.Dir("./../html/images"))))
+	mux.Handle("/", protectAdminFiles(http.FileServer(http.Dir("./../html"))))
+
+	// API endpoints с CORS
+	mux.HandleFunc("/api/send-form", enableCORS(handlers.SendToTelegramHandler))
+	mux.HandleFunc("/api/projects", enableCORS(handlers.GetProjectsHandler))
+
+	// Админка с защитой
+	mux.HandleFunc("/admin", handlers.RequireAuth(handlers.AdminHandler))
+	mux.HandleFunc("/admin/login", handlers.AdminLoginHandler)
+	mux.HandleFunc("/admin/api/projects", handlers.ProtectAPI(handlers.AdminAPIHandler))
+
 	log.Printf("🚀 HTTP server starting on :%s", port)
 	log.Printf("📱 Main site: http://localhost:%s", port)
 	log.Printf("🔐 Admin panel: http://localhost:%s/admin", port)
 	log.Printf("⚠️  HTTPS: DISABLED - running in HTTP mode only")
 	
-	if err := http.ListenAndServe(":"+port, nil); err != nil {
+	if err := http.ListenAndServe(":"+port, mux); err != nil {
 		log.Fatalf("❌ HTTP server error: %v", err)
 	}
 }
