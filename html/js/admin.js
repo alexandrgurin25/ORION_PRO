@@ -3,8 +3,8 @@ class ProjectAdmin {
         this.projects = [];
         this.editingId = null;
         this.deleteModal = null;
+        this.isSubmitting = false;
         
-        this.init();
     }
 
     async init() {
@@ -61,9 +61,14 @@ class ProjectAdmin {
     }
 
     // Сохранение проекта на сервер
-    // Сохранение проекта на сервер
 async saveProject() {
-    const formData = this.getFormData();
+    // Защита от множественной отправки
+        if (this.isSubmitting) {
+            console.log('🛑 Запрос уже выполняется, игнорируем дублирование');
+            return;
+        }
+
+        const formData = this.getFormData();
     
     // Валидация
     if (!formData.title || !formData.description) {
@@ -75,6 +80,9 @@ async saveProject() {
         this.showAlert('Укажите название изображения', 'warning');
         return;
     }
+
+    this.isSubmitting = true; // Устанавливаем флаг
+
 
     const submitBtn = document.getElementById('submitBtn');
     const originalText = submitBtn.innerHTML;
@@ -100,15 +108,12 @@ async saveProject() {
         console.log('✅ Ответ сервера:', result);
         
         if (result.status === 'success') {
-            // ВАЖНО: Всегда перезагружаем данные с сервера после сохранения
-            console.log('🔄 Перезагрузка данных с сервера...');
-            await this.loadProjects(); // ← ЗАМЕНИТЕ локальное обновление на эту строку
-            
-            this.clearForm();
-            const message = this.editingId ? 'Проект успешно обновлен!' : 'Проект успешно добавлен!';
-            this.showAlert(message, 'success');
-        } else {
-            throw new Error(result.error || 'Unknown error');
+                await this.loadProjects(); // Перезагружаем данные с сервера
+                this.clearForm();
+                const message = this.editingId ? 'Проект успешно обновлен!' : 'Проект успешно добавлен!';
+                this.showAlert(message, 'success');
+            } else {
+                throw new Error(result.error || 'Unknown error');
         }
 
     } catch (error) {
@@ -117,6 +122,8 @@ async saveProject() {
     } finally {
         submitBtn.innerHTML = originalText;
         submitBtn.disabled = false;
+        this.isSubmitting = false; // Сбрасываем флаг
+
     }
 }
 
@@ -428,4 +435,5 @@ async deleteProject(id) {
 
 document.addEventListener('DOMContentLoaded', function() {
     window.admin = new ProjectAdmin();
+    window.admin.init();
 });
