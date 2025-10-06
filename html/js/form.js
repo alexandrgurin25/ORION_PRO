@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
             submitBtn.disabled = true;
 
             // Отправляем на ваш бэкенд вместо прямого обращения к Telegram API
-            fetch('http://localhost:3000/api/send-form', {
+            fetch('/api/send-form', {
                 method: "POST",
                 headers: { 
                     "Content-Type": "application/json" 
