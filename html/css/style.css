@@ -1,8 +1,4 @@
-/* css/style.css */
-
 /* Основные стили */
-
- 
 
 .footer {   
     background: #111;   
@@ -49,8 +45,6 @@
     color: rgba(255, 255, 255, 0.8) !important; 
     padding: 0.5rem 1rem; 
 }
-
-
 
 .navbar-nav .nav-link:hover { 
     color: #fff !important; 
@@ -463,7 +457,6 @@
     }
 }
 
-
 .contact-buttons {
     display: flex;
     flex-wrap: wrap;
@@ -544,7 +537,6 @@
     }
 }
 
-
 .contact-item {
     cursor: pointer;
     transition: all 0.3s ease;
@@ -598,7 +590,7 @@
 
 .copy-hint.show {
     opacity: 1;
-     visibility: visible; /* Показываем при наведении */
+    visibility: visible; /* Показываем при наведении */
     transform: translateY(0);
 }
 
@@ -851,136 +843,128 @@
     }
 }
 
+.main-logo {
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.5));
+    animation: logoFadeIn 1.5s ease-out;
+    margin-bottom: 0.25rem; /* Минимальный отступ */
+}
 
-
-
-    .main-logo {
-        max-width: 4000px;
-        height: auto;
-        filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.5));
-        animation: logoFadeIn 1.5s ease-out;
-         margin-bottom: 0.25rem; /* Минимальный отступ */
-    }
-
-    .tagline-animated {
-        overflow: hidden;
-        position: relative;
+.tagline-animated {
+    overflow: hidden;
+    position: relative;
       
-    }
+}
 
-    .tagline-text {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #ffffff;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
-        display: inline-block;
+.tagline-text {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: taglineSlideUp 1.2s ease-out 0.8s forwards;
+    position: relative;
+    margin-top: 0; /* Убедился, что нет лишних отступов сверху */
+}
+
+.tagline-text::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        #ffffff 50%, 
+        transparent 100%);
+    transform: scaleX(0);
+    animation: lineExpand 1s ease-out 1.8s forwards;
+}
+
+/* Анимации */
+@keyframes logoFadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes taglineSlideUp {
+    0% {
         opacity: 0;
         transform: translateY(30px);
-        animation: taglineSlideUp 1.2s ease-out 0.8s forwards;
-        position: relative;
-        margin-top: 0; /* Убедился, что нет лишних отступов сверху */
     }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-    .tagline-text::after {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background: linear-gradient(90deg, 
-            transparent 0%, 
-            #ffffff 50%, 
-            transparent 100%);
+@keyframes lineExpand {
+    0% {
         transform: scaleX(0);
-        animation: lineExpand 1s ease-out 1.8s forwards;
     }
-
-    /* Анимации */
-    @keyframes logoFadeIn {
-        0% {
-            opacity: 0;
-            transform: scale(0.9) translateY(20px);
-        }
-        100% {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-        }
+    100% {
+        transform: scaleX(1);
     }
+}
 
-    @keyframes taglineSlideUp {
-        0% {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
+/* Адаптивность */
+@media (max-width: 768px) {
+    .main-logo {
+        max-width: 300px;
     }
-
-    @keyframes lineExpand {
-        0% {
-            transform: scaleX(0);
-        }
-        100% {
-            transform: scaleX(1);
-        }
+    
+    .tagline-text {
+        font-size: 1.2rem;
+        letter-spacing: 2px;
     }
-
-    /* Адаптивность */
-    @media (max-width: 768px) {
-        .main-logo {
-            max-width: 300px;
-        }
-        
-        .tagline-text {
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-        }
-        
-        .logo-container {
-             gap: 0.5rem;
-        }
+    
+    .logo-container {
+         gap: 0.5rem;
     }
+}
 
-    @media (max-width: 576px) {
-        .main-logo {
-            max-width: 250px;
-            margin-bottom: 0.3rem;
-        }
-        
-        .tagline-text {
-            font-size: 1rem;
-            letter-spacing: 1px;
-        }
-        
-        .logo-container {
-             gap: 0.5rem;
-        }
+@media (max-width: 576px) {
+    .main-logo {
+        max-width: 250px;
+        margin-bottom: 0.3rem;
     }
-
-    @media (max-width: 400px) {
-        .main-logo {
-            max-width: 200px;
-        }
-        
-        .tagline-text {
-            font-size: 0.9rem;
-        }
-        
-        .logo-container {
-             gap: 0.5rem;
-        }
+    
+    .tagline-text {
+        font-size: 1rem;
+        letter-spacing: 1px;
     }
+    
+    .logo-container {
+         gap: 0.5rem;
+    }
+}
 
-
-
-
-
-
+@media (max-width: 400px) {
+    .main-logo {
+        max-width: 200px;
+    }
+    
+    .tagline-text {
+        font-size: 0.9rem;
+    }
+    
+    .logo-container {
+         gap: 0.5rem;
+    }
+}
 
 .footer-left .row.align-items-stretch {
     min-height: 500px; /* или нужная вам высота */
@@ -1006,4 +990,53 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+}
+
+/* Фикс для логотипа и скролла */
+.main-logo {
+    max-width: 400px; /* Измените на 400px вместо 4000px; подгоните под дизайн, если нужно */
+    width: 100%; /* Делает responsive */
+    height: auto;
+    filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.5));
+    animation: logoFadeIn 1.5s ease-out;
+    margin-bottom: 0.25rem;
+}
+
+.logo-container {
+    max-width: 100%; /* Ограничиваем контейнер */
+    overflow: hidden; /* Предотвращаем overflow от shadow или анимации */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-section {
+    overflow-x: hidden; /* Запрещаем горизонтальный скролл в hero */
+    position: relative; /* Для лучшего контроля */
+}
+
+/* Дополнительно для body, чтобы глобально предотвратить скролл при зуме */
+body, html {
+    overflow-x: hidden; /* Если проблема persists на всей странице */
+}
+
+/* Медиа-запросы остаются, но обновляем max-width логотипа */
+@media (max-width: 768px) {
+    .main-logo {
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    .main-logo {
+        max-width: 250px;
+        margin-bottom: 0.3rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .main-logo {
+        max-width: 200px;
+    }
 }
