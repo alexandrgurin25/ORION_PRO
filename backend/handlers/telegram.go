@@ -20,7 +20,8 @@ type ContactForm struct {
 
 type Config struct {
 	TelegramBotToken string `json:"telegram_bot_token"`
-	TelegramChatID   string `json:"telegram_chat_id"`
+	TelegramChatID_Igor   string `json:"telegram_chat_id"`
+	TelegramChatID_Sasha   string `json:"telegram_chat_id"`
 }
 
 func init() {
@@ -47,7 +48,7 @@ func SendToTelegramHandler(w http.ResponseWriter, r *http.Request) {
 	config := LoadConfigFromEnv()
 
 	// Проверяем что конфиг заполнен
-	if config.TelegramBotToken == "" || config.TelegramChatID == "" {
+	if config.TelegramBotToken == "" || config.TelegramChatID_Igor == "" ||  config.TelegramChatID_Sasha == ""{
 		http.Error(w, `{"error": "Telegram configuration incomplete. Check environment variables."}`, http.StatusInternalServerError)
 		return
 	}
@@ -56,7 +57,12 @@ func SendToTelegramHandler(w http.ResponseWriter, r *http.Request) {
 	message := formatTelegramMessage(form)
 
 	// Отправляем в Telegram
-	if err := sendTelegramMessage(config.TelegramBotToken, config.TelegramChatID, message); err != nil {
+	if err := sendTelegramMessage(config.TelegramBotToken, config.TelegramChatID_Igor, message); err != nil {
+		http.Error(w, `{"error": "Failed to send message to Telegram"}`, http.StatusInternalServerError)
+		return
+	}
+
+	if err := sendTelegramMessage(config.TelegramBotToken, config.TelegramChatID_Sasha, message); err != nil {
 		http.Error(w, `{"error": "Failed to send message to Telegram"}`, http.StatusInternalServerError)
 		return
 	}
@@ -72,7 +78,8 @@ func SendToTelegramHandler(w http.ResponseWriter, r *http.Request) {
 func LoadConfigFromEnv() *Config {
 	return &Config{
 		TelegramBotToken: os.Getenv("TELEGRAM_BOT_TOKEN"),
-		TelegramChatID:   os.Getenv("TELEGRAM_CHAT_ID"),
+		TelegramChatID_Igor:   os.Getenv("TELEGRAM_CHAT_ID_I"),
+		TelegramChatID_Sasha:   os.Getenv("TELEGRAM_CHAT_ID_S"),
 	}
 }
 

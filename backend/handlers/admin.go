@@ -8,14 +8,11 @@ import (
 	"sync"
 )
 
-// Добавьте эти middleware функции в начало файла (после импортов)
-
 // Middleware для проверки аутентификации
 func RequireAuth(next http.HandlerFunc) http.HandlerFunc {
     return func(w http.ResponseWriter, r *http.Request) {
         if !isAuthenticated(r) {
             // Логируем попытку доступа
-            fmt.Printf("🚫 Unauthorized access attempt from %s to %s\n", r.RemoteAddr, r.URL.Path)
             http.Redirect(w, r, "/admin/login", http.StatusSeeOther)
             return
         }
@@ -28,7 +25,6 @@ func PreventDirectFileAccess(next http.HandlerFunc) http.HandlerFunc {
     return func(w http.ResponseWriter, r *http.Request) {
         // Блокируем прямые запросы к .html файлам админки
         if r.URL.Path == "/admin.html" || r.URL.Path == "/admin-login.html" {
-            fmt.Printf("🚫 Direct file access attempt: %s from %s\n", r.URL.Path, r.RemoteAddr)
             http.Error(w, "Access denied", http.StatusForbidden)
             return
         }
@@ -40,7 +36,6 @@ func PreventDirectFileAccess(next http.HandlerFunc) http.HandlerFunc {
 func ProtectAPI(next http.HandlerFunc) http.HandlerFunc {
     return func(w http.ResponseWriter, r *http.Request) {
         if !isAuthenticated(r) {
-            fmt.Printf("🚫 Unauthorized API access: %s from %s\n", r.URL.Path, r.RemoteAddr)
             http.Error(w, `{"error": "Unauthorized"}`, http.StatusUnauthorized)
             return
         }
@@ -254,11 +249,9 @@ func AdminLoginHandler(w http.ResponseWriter, r *http.Request) {
                 MaxAge: 24 * 60 * 60,
             })
             // Логируем успешный вход
-            fmt.Printf("✅ Admin login successful from %s\n", r.RemoteAddr)
             http.Redirect(w, r, "/admin", http.StatusSeeOther)
         } else {
             // Логируем неудачную попытку входа
-            fmt.Printf("❌ Failed admin login attempt from %s\n", r.RemoteAddr)
             http.Error(w, "Неверный пароль", http.StatusUnauthorized)
         }
     }
