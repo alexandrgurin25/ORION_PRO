@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /backend/
+Disallow: /admin.html
+Disallow: /admin-login.html
+Disallow: /js/admin.js
+
+Sitemap: https://xn----otbpcbcgdf.xn--p1ai/sitemap.xml
